@@ -1,8 +1,11 @@
 package com.chomoncik.clinic.model;
 
 import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,10 +15,11 @@ import java.util.Set;
 @Table(name = "person")
 @Getter
 @AllArgsConstructor
+@ToString
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
     private final Long personId;
 
@@ -34,7 +38,8 @@ public class Person {
     @OneToMany(
             mappedBy = "owner",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     private final Set<Animal> animalSet;
 

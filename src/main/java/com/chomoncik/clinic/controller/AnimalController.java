@@ -1,9 +1,7 @@
 package com.chomoncik.clinic.controller;
 
-import com.chomoncik.clinic.model.Animal;
 import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
 import com.chomoncik.clinic.model.DTO.AnimalResponseDTO;
-import com.chomoncik.clinic.model.DTO.ApiResponseDTO;
 import com.chomoncik.clinic.service.AnimalService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,12 +20,23 @@ public class AnimalController {
         return new ResponseEntity<>(animalService.addAnimal(animalRequestDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "{id}")
-    public ResponseEntity<AnimalResponseDTO> getAnimalById(@PathVariable("id") Long id) {
-        AnimalResponseDTO animalResponseDTO = animalService.getAnimalResponseDTOById(id);
+    @GetMapping(path = "{animalId}")
+    public ResponseEntity<AnimalResponseDTO> getAnimalById(@PathVariable("animalId") Long animalId) {
+        AnimalResponseDTO animalResponseDTO = animalService.getAnimalResponseDTOById(animalId);
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
     }
 
-//    @PatchMapping(path = "{id}/add_owner")
-//    public ResponseEntity<?> addOwnerToAnimal(@RequestParam)
+    @PatchMapping(path = "{animalId}/add_owner")
+    public ResponseEntity<?> addOwnerToAnimal(@PathVariable("animalId") Long animalId,
+                                              @RequestParam(value = "ownerId") Long ownerId) {
+        AnimalResponseDTO animalResponseDTO = animalService.addOwner(animalId, ownerId);
+        return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
+    }
+
+    @PatchMapping(path = "{animalId}")
+    public ResponseEntity<?> addDeathYear(@PathVariable("animalId") Long animalId,
+                                              @RequestParam(value = "deathYear") int deathYear) {
+        AnimalResponseDTO animalResponseDTO = animalService.addDeathYear(animalId, deathYear);
+        return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
+    }
 }
