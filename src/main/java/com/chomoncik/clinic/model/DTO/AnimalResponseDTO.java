@@ -1,6 +1,5 @@
 package com.chomoncik.clinic.model.DTO;
 
-import com.chomoncik.clinic.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

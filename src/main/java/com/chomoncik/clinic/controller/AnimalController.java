@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "/animal")
@@ -26,6 +28,12 @@ public class AnimalController {
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<AnimalResponseDTO>> getAllAnimals() {
+        List<AnimalResponseDTO> animalResponseDTOList = animalService.getAllAnimals();
+        return new ResponseEntity<>(animalResponseDTOList, HttpStatus.OK);
+    }
+
     @PatchMapping(path = "{animalId}/add_owner")
     public ResponseEntity<?> addOwnerToAnimal(@PathVariable("animalId") Long animalId,
                                               @RequestParam(value = "ownerId") Long ownerId) {
@@ -38,5 +46,17 @@ public class AnimalController {
                                               @RequestParam(value = "deathYear") int deathYear) {
         AnimalResponseDTO animalResponseDTO = animalService.addDeathYear(animalId, deathYear);
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
+    }
+
+    @PatchMapping(path = "{animalId}/remove_owner")
+    public ResponseEntity<?> removeOwner(@PathVariable("animalId") Long animalId) {
+        AnimalResponseDTO animalResponseDTO = animalService.removeOwnerFromAnimal(animalId);
+        return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "{animalId}")
+    public ResponseEntity<?> deleteAnimalById(@PathVariable("animalId") Long animalId) {
+        animalService.deleteAnimalById(animalId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,11 +1,9 @@
 package com.chomoncik.clinic.model;
 
 import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +13,7 @@ import java.util.Set;
 @Table(name = "person")
 @Getter
 @AllArgsConstructor
-@ToString
+@Builder
 public class Person {
 
     @Id

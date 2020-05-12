@@ -1,6 +1,5 @@
 package com.chomoncik.clinic.model.DTO;
 
-import com.chomoncik.clinic.model.Person;
 import lombok.Getter;
 
 @Getter
