@@ -2,14 +2,12 @@ package com.chomoncik.clinic.model;
 
 import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import lombok.Builder;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Optional;
 
 @Entity
@@ -24,7 +22,8 @@ public class Animal {
     @Column(name = "animal_id")
     private final Long animalId;
 
-    private final String name;
+    @Column(name = "animal_name")
+    private final String animalName;
 
     private final String species;
 
@@ -43,7 +42,7 @@ public class Animal {
 
     public Animal() {
         this.animalId = 0L;
-        this.name = null;
+        this.animalName = null;
         this.species = null;
         this.birthYear = 0;
         this.deathYear = 0;
@@ -52,7 +51,7 @@ public class Animal {
 
     public Animal(AnimalRequestDTO animalRequestDTO) {
         this.animalId = 0L;
-        this.name = animalRequestDTO.getName();
+        this.animalName = animalRequestDTO.getName();
         this.species = animalRequestDTO.getSpecies();
         this.birthYear = animalRequestDTO.getBirthYear();
         this.deathYear = animalRequestDTO.getDeathYear();

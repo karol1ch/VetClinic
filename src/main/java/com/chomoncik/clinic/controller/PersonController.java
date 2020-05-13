@@ -7,8 +7,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -23,14 +25,20 @@ public class PersonController {
     }
 
     @GetMapping(path = "{personId}")
-    public ResponseEntity<PersonResponseDTO> getPersonById(@PathVariable("personId") Long personId) {
-        PersonResponseDTO personResponseDTO = personService.getPersonResponseDTOById(personId);
+    public ResponseEntity<?> getPersonById(@PathVariable("personId") Long personId) {
+        Optional<PersonResponseDTO> personResponseDTO = personService.getPersonResponseDTOById(personId);
+        if (personResponseDTO.isEmpty()) {
+            return new ResponseEntity<>("Person with id " + personId + " not found.", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(personResponseDTO, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<PersonResponseDTO>> getAllPeople() {
+    public ResponseEntity<?> getAllPeople() {
         List<PersonResponseDTO> personResponseDTOList = personService.getAllPeople();
+        if (personResponseDTOList.isEmpty()) {
+            return new ResponseEntity<>("Persons list is empty.", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(personResponseDTOList, HttpStatus.OK);
 
     }

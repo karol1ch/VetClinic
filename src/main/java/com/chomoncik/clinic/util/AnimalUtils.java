@@ -10,7 +10,7 @@ public class AnimalUtils {
         if (animal.getOwner().isEmpty()) {
             return AnimalResponseDTO.builder()
                     .animalId(animal.getAnimalId())
-                    .name(animal.getName())
+                    .name(animal.getAnimalName())
                     .species(animal.getSpecies())
                     .birthYear(animal.getBirthYear())
                     .deathYear(animal.getDeathYear())
@@ -19,7 +19,7 @@ public class AnimalUtils {
         } else {
             return AnimalResponseDTO.builder()
                     .animalId(animal.getAnimalId())
-                    .name(animal.getName())
+                    .name(animal.getAnimalName())
                     .species(animal.getSpecies())
                     .birthYear(animal.getBirthYear())
                     .deathYear(animal.getDeathYear())

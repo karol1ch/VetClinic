@@ -14,7 +14,7 @@ public class PersonUtils {
                 .surname(person.getSurname())
                 .address(person.getAddress())
                 .contact(person.getContact())
-                .animalsSet(person.getAnimalSet().stream().map(Animal::getName).collect(Collectors.toUnmodifiableSet()))
+                .animalsSet(person.getAnimalSet().stream().map(Animal::getAnimalName).collect(Collectors.toUnmodifiableSet()))
                 .build();
     }
 }

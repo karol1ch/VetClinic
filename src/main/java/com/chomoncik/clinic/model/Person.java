@@ -3,6 +3,7 @@ package com.chomoncik.clinic.model;
 import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class Person {
 
     @Id

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -27,50 +28,32 @@ public class AnimalService {
         return animalRepository.save(animal);
     }
 
-    public AnimalResponseDTO getAnimalResponseDTOById(Long animalId) {
-        Animal animal = getAnimalById(animalId);
-        return AnimalUtils.convertAnimalToAnimalResponseDTO(animal);
+    public Optional<AnimalResponseDTO> getAnimalResponseDTOById(Long animalId) {
+        Optional<Animal> animal = getAnimalById(animalId);
+        return animal.map(AnimalUtils::convertAnimalToAnimalResponseDTO);
     }
 
-    public Animal getAnimalById(Long animalId) {
-        return animalRepository.findById(animalId)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Animal with id " + animalId + " not found.")
-                );
+    public Optional<Animal> getAnimalById(Long animalId) {
+        return animalRepository.findById(animalId);
     }
 
     public List<AnimalResponseDTO> getAllAnimals() {
         List<Animal> animalList = animalRepository.findAll();
-        if (animalList.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Animals list is empty.");
-        } else {
-            return animalList.stream()
-                    .map(AnimalUtils::convertAnimalToAnimalResponseDTO)
-                    .collect(Collectors.toList());
-        }
+        return animalList.stream()
+                .map(AnimalUtils::convertAnimalToAnimalResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public AnimalResponseDTO addOwner(Long animalId, Long ownerId) {
-        Animal animal = getAnimalById(animalId);
-        Person owner = personService.getPersonById(ownerId);
-        Animal animalWithOwner = Animal.builder()
-                .animalId(animal.getAnimalId())
-                .name(animal.getName())
-                .species(animal.getSpecies())
-                .birthYear(animal.getBirthYear())
-                .deathYear(animal.getDeathYear())
-                .owner(owner)
-                .build();
+    public AnimalResponseDTO addOwner(Animal animal, Person owner) {
+        Animal animalWithOwner = createAnimalWithOwner(animal, owner);
         animalRepository.save(animalWithOwner);
         return AnimalUtils.convertAnimalToAnimalResponseDTO(animalWithOwner);
     }
 
-    public AnimalResponseDTO addDeathYear(Long animalId, int deathYear) {
-        Animal animal = getAnimalById(animalId);
+    public AnimalResponseDTO addDeathYear(Animal animal, int deathYear) {
         Animal deathAnimal = Animal.builder()
                 .animalId(animal.getAnimalId())
-                .name(animal.getName())
+                .animalName(animal.getAnimalName())
                 .species(animal.getSpecies())
                 .birthYear(animal.getBirthYear())
                 .deathYear(deathYear)
@@ -80,30 +63,33 @@ public class AnimalService {
         return AnimalUtils.convertAnimalToAnimalResponseDTO(deathAnimal);
     }
 
-    public AnimalResponseDTO removeOwnerFromAnimal(Long animalId) {
-        Animal animal = getAnimalById(animalId);
+    public AnimalResponseDTO removeOwnerFromAnimal(Animal animal) {
         if (animal.getOwner().isEmpty()) {
             return AnimalUtils.convertAnimalToAnimalResponseDTO(animal);
         } else {
-            Animal animalWithoutOwner = Animal.builder()
-                    .animalId(animal.getAnimalId())
-                    .name(animal.getName())
-                    .species(animal.getSpecies())
-                    .birthYear(animal.getBirthYear())
-                    .deathYear(animal.getDeathYear())
-                    .owner(null)
-                    .build();
+            Animal animalWithoutOwner = createAnimalWithOwner(animal, null);
             animalRepository.save(animalWithoutOwner);
             return AnimalUtils.convertAnimalToAnimalResponseDTO(animalWithoutOwner);
         }
     }
 
     public void deleteAnimalById(Long animalId) {
-        if (animalRepository.existsById(animalId)) {
             animalRepository.deleteById(animalId);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Animal with id " + animalId + " not found.");
-        }
     }
+
+    public boolean checkIfAnimalWithIdExist(Long animalId) {
+        return animalRepository.existsById(animalId);
+    }
+
+    private Animal createAnimalWithOwner(Animal animal, Person owner) {
+        return Animal.builder()
+                .animalId(animal.getAnimalId())
+                .animalName(animal.getAnimalName())
+                .species(animal.getSpecies())
+                .birthYear(animal.getBirthYear())
+                .deathYear(animal.getDeathYear())
+                .owner(owner)
+                .build();
+    }
+
 }
