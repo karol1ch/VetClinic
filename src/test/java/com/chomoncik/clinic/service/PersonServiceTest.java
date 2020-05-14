@@ -1,6 +1,8 @@
 package com.chomoncik.clinic.service;
 
 import com.chomoncik.clinic.model.Animal;
+import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
+import com.chomoncik.clinic.model.DTO.PersonResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
@@ -11,14 +13,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
@@ -32,12 +33,94 @@ class PersonServiceTest {
             Animal.builder().animalId(2L).animalName("tofik").build()
     ));
     private static final Set<String> ANIMAL_NAMES = new HashSet<>(Arrays.asList("burek", "tofik"));
+    private static final Person PERSON_WITHOUT_ANIMALS = Person.builder()
+                                                                .personId(ID)
+                                                                .name(NAME)
+                                                                .surname(SURNAME)
+                                                                .address(ADDRESS)
+                                                                .contact(CONTACT)
+                                                                .build();
+
+    private static final Person PERSON_WITH_ANIMALS = Person.builder()
+                                                                .personId(ID)
+                                                                .name(NAME)
+                                                                .surname(SURNAME)
+                                                                .address(ADDRESS)
+                                                                .contact(CONTACT)
+                                                                .animalSet(ANIMAL_SET)
+                                                                .build();
+
+    private static final PersonRequestDTO PERSON_REQUEST_DTO = PersonRequestDTO.builder()
+                                                                .name(NAME)
+                                                                .surname(SURNAME)
+                                                                .address(ADDRESS)
+                                                                .contact(CONTACT)
+                                                                .build();
+
+    private static final PersonResponseDTO PERSON_RESPONSE_DTO = PersonResponseDTO.builder()
+                                                                .name(NAME)
+                                                                .surname(SURNAME)
+                                                                .address(ADDRESS)
+                                                                .contact(CONTACT)
+                                                                .animalsSet(ANIMAL_NAMES)
+                                                                .build();
+
 
     @Mock
     private PersonRepository personRepository;
 
     @InjectMocks
     private PersonService personService;
+
+    @Test
+    void shouldGetPersonById() {
+        //GIVEN
+        given(personRepository.findById(ID)).willReturn(Optional.of(PERSON_WITH_ANIMALS));
+
+        //WHEN
+        Person person = personService.getPersonById(ID).get() ;
+
+        //THEN
+        assertThat(person).isEqualTo(PERSON_WITH_ANIMALS);
+    }
+
+    @Test
+    void shouldAddPerson() {
+        //GIVEN
+        given(personRepository.save(any(Person.class))).willReturn(PERSON_WITHOUT_ANIMALS);
+
+        //WHEN
+        Person person = personService.addPerson(PERSON_REQUEST_DTO);
+
+        //THEN
+        assertThat(person).isEqualTo(PERSON_WITHOUT_ANIMALS);
+        verify(personRepository, times(1)).save(any(Person.class));
+    }
+
+    @Test
+    void shouldGetPersonResponseDTOById() {
+        //GIVEN
+        given(personRepository.findById(ID)).willReturn(Optional.of(PERSON_WITH_ANIMALS));
+
+        //WHEN
+        PersonResponseDTO personResponseDTO = personService.getPersonResponseDTOById(ID).get();
+
+        //THEN
+        assertThat(personResponseDTO).isEqualTo(PERSON_RESPONSE_DTO);
+    }
+
+    @Test
+    void shouldGetAllPeople() {
+        //GIVEN
+        given(personRepository.findAll()).willReturn(List.of(PERSON_WITH_ANIMALS));
+
+        //WHEN
+        List<PersonResponseDTO> personResponseDTOList = personService.getAllPeople();
+
+        //THEN
+        personResponseDTOList.forEach(x -> assertThat(x).isEqualTo(PERSON_RESPONSE_DTO));
+        assertThat(personResponseDTOList.size()).isEqualTo(1);
+    }
 
 
 }
