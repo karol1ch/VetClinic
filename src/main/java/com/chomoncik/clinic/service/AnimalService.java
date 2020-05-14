@@ -7,9 +7,7 @@ import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.AnimalRepository;
 import com.chomoncik.clinic.util.AnimalUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +19,6 @@ import java.util.stream.Collectors;
 public class AnimalService {
 
     private final AnimalRepository animalRepository;
-    private final PersonService personService;
 
     public Animal addAnimal(AnimalRequestDTO animalRequestDTO) {
         Animal animal = new Animal(animalRequestDTO);

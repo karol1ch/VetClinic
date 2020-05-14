@@ -2,6 +2,7 @@ package com.chomoncik.clinic.model;
 
 import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import lombok.Builder;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class Animal {
 
     @Id
