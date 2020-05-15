@@ -10,6 +10,7 @@ import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @Table(name = "animal")
@@ -38,6 +39,14 @@ public class Animal {
     @ManyToOne(fetch = FetchType.LAZY)
     private final Person owner;
 
+    @OneToMany(
+            mappedBy = "patient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private final Set<Appointment> appointmentSet;
+
     public Optional<Person> getOwner() {
         return Optional.ofNullable(this.owner);
     }
@@ -49,6 +58,7 @@ public class Animal {
         this.birthYear = 0;
         this.deathYear = 0;
         this.owner = null;
+        this.appointmentSet = null;
     }
 
     public Animal(AnimalRequestDTO animalRequestDTO) {
@@ -58,6 +68,7 @@ public class Animal {
         this.birthYear = animalRequestDTO.getBirthYear();
         this.deathYear = animalRequestDTO.getDeathYear();
         this.owner = null;
+        this.appointmentSet = null;
     }
 
 }

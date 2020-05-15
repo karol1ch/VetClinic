@@ -173,15 +173,11 @@ class AnimalServiceTest {
 
     @Test
     void shouldNotRemoveOwnerFromAnimalWhenOwnerNotExist() {
-        //GIVEN
-        given(animalRepository.save(any(Animal.class))).willReturn(ANIMAL_WITHOUT_OWNER);
-
         //WHEN
         AnimalResponseDTO animalResponseDTO = animalService.removeOwnerFromAnimal(ANIMAL_WITHOUT_OWNER);
 
         //THEN
         assertThat(animalResponseDTO).isEqualTo(ANIMAL_RESPONSE_DTO_WITHOUT_ANIMAL);
-        verify(animalRepository, times(1)).save(any(Animal.class));
     }
 
     @Test
