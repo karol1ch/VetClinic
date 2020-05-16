@@ -1,6 +1,7 @@
 package com.chomoncik.clinic.model;
 
 import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class Person {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     private final Set<Animal> animalSet;
 
     public Person() {

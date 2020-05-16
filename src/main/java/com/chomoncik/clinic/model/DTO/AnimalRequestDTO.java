@@ -12,4 +12,5 @@ public class AnimalRequestDTO {
     private String species;
     private int birthYear;
     private int deathYear;
+    private long ownerID;
 }

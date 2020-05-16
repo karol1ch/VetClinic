@@ -23,7 +23,7 @@ public class AnimalController {
     private final PersonService personService;
 
     @PostMapping
-    public ResponseEntity<?> addAnimal(@RequestBody AnimalRequestDTO animalRequestDTO) {
+    public ResponseEntity<Animal> addAnimal(@RequestBody AnimalRequestDTO animalRequestDTO) {
         return new ResponseEntity<>(animalService.addAnimal(animalRequestDTO), HttpStatus.CREATED);
     }
 

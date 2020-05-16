@@ -15,4 +15,5 @@ public enum AppointmentTime {
     public int getValue() {
         return value;
     }
+
 }
