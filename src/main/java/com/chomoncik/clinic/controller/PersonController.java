@@ -2,8 +2,10 @@ package com.chomoncik.clinic.controller;
 
 import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
 import com.chomoncik.clinic.model.DTO.PersonResponseDTO;
+import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.service.PersonService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "/person")
@@ -20,7 +23,9 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<?> addPerson(@RequestBody PersonRequestDTO personRequestDTO) {
-        return new ResponseEntity<>(personService.addPerson(personRequestDTO), HttpStatus.CREATED);
+        Person person = personService.addPerson(personRequestDTO);
+        log.info("Create person with id={}.", person.getPersonId());
+        return new ResponseEntity<>(person, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "{personId}")

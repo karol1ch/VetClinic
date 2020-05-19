@@ -6,6 +6,7 @@ import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.PersonRepository;
 import com.chomoncik.clinic.util.PersonUtils;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,12 +17,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class PersonService {
 
     private final PersonRepository personRepository;
 
     public Person addPerson(PersonRequestDTO personRequestDTO) {
         Person person = new Person(personRequestDTO);
+        log.info("Save person with id={}.", person.getPersonId());
         return personRepository.save(person);
     }
 

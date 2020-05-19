@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "/appointment")
-@Slf4j
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -27,11 +27,20 @@ public class AppointmentController {
 
     @PostMapping
     public ResponseEntity<?> addAppointment(@RequestBody AppointmentRequestDTO appointmentRequestDTO) {
+        if(!appointmentService.checkIfDateIsAtLeastTomorrow(appointmentRequestDTO.getAppointmentDateTime())) {
+            log.error("Given appointment date {} is not after today.", appointmentRequestDTO.getAppointmentDateTime());
+            return new ResponseEntity<>("Given appointment date " +
+                    appointmentRequestDTO.getAppointmentDateTime() + " is not after today.", HttpStatus.BAD_REQUEST);
+        }
         Optional<Animal> patient = animalService.getAnimalById(appointmentRequestDTO.getPatientId());
         if (patient.isEmpty()) {
-            return new ResponseEntity<>("Animal with id " + patient + " not found.", HttpStatus.NOT_FOUND);
+            log.error("Animal with id={} not found.", appointmentRequestDTO .getPatientId());
+            return new ResponseEntity<>("Animal with id " +
+                    appointmentRequestDTO.getPatientId() + " not found.", HttpStatus.NOT_FOUND);
         }
         Appointment appointment = appointmentService.addAppointment(appointmentRequestDTO, patient.get());
+        log.info("Create appointment with id={} for animal with id={}.",
+                appointment.getAppointmentId(), appointment.getPatient().getAnimalId());
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 

@@ -7,6 +7,7 @@ import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.service.AnimalService;
 import com.chomoncik.clinic.service.PersonService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "/animal")
@@ -24,15 +26,19 @@ public class AnimalController {
 
     @PostMapping
     public ResponseEntity<Animal> addAnimal(@RequestBody AnimalRequestDTO animalRequestDTO) {
-        return new ResponseEntity<>(animalService.addAnimal(animalRequestDTO), HttpStatus.CREATED);
+        Animal animal = animalService.addAnimal(animalRequestDTO);
+        log.info("Create animal with id={}.", animal.getAnimalId());
+        return new ResponseEntity<>(animal, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "{animalId}")
     public ResponseEntity<?> getAnimalById(@PathVariable("animalId") Long animalId) {
         Optional<AnimalResponseDTO> animalResponseDTO = animalService.getAnimalResponseDTOById(animalId);
         if (animalResponseDTO.isEmpty()) {
+            log.error("Animal with id={} not found.", animalId);
             return new ResponseEntity<>("Animal with id " + animalId + " not found.", HttpStatus.NOT_FOUND);
         }
+        log.info("Return animal with id={}.", animalId);
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
     }
 
@@ -40,8 +46,10 @@ public class AnimalController {
     public ResponseEntity<?> getAllAnimals() {
         List<AnimalResponseDTO> animalResponseDTOList = animalService.getAllAnimals();
         if (animalResponseDTOList.isEmpty()) {
+            log.error("Animals list is empty.");
             return new ResponseEntity<>("Animal list is empty.", HttpStatus.NOT_FOUND);
         }
+        log.info("An");
         return new ResponseEntity<>(animalResponseDTOList, HttpStatus.OK);
     }
 

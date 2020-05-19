@@ -7,6 +7,7 @@ import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.AnimalRepository;
 import com.chomoncik.clinic.util.AnimalUtils;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AnimalService {
 
     private final AnimalRepository animalRepository;
 
     public Animal addAnimal(AnimalRequestDTO animalRequestDTO) {
         Animal animal = new Animal(animalRequestDTO);
+        log.info("Save animal with id={}.", animal.getAnimalId());
         return animalRepository.save(animal);
     }
 
