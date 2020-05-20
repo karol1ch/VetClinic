@@ -29,6 +29,7 @@ public class PersonService {
     }
 
     public Optional<Person> getPersonById(Long personId) {
+        log.info("Get person with id={}.", personId);
         return personRepository.findById(personId);
     }
 

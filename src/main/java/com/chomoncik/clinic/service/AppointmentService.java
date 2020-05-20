@@ -30,6 +30,7 @@ public class AppointmentService {
     }
 
     public boolean checkIfDateIsAtLeastTomorrow(LocalDateTime requestedDateTime) {
+        log.info("Checking if date {}, is valid.", requestedDateTime);
         return requestedDateTime.toLocalDate().isAfter(LocalDate.now());
     }
 }

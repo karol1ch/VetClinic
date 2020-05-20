@@ -32,8 +32,10 @@ public class PersonController {
     public ResponseEntity<?> getPersonById(@PathVariable("personId") Long personId) {
         Optional<PersonResponseDTO> personResponseDTO = personService.getPersonResponseDTOById(personId);
         if (personResponseDTO.isEmpty()) {
+            log.error("Person with id={} not found.", personId);
             return new ResponseEntity<>("Person with id " + personId + " not found.", HttpStatus.NOT_FOUND);
         }
+        log.info("Return person with id={}.", personId);
         return new ResponseEntity<>(personResponseDTO, HttpStatus.OK);
     }
 
@@ -41,8 +43,10 @@ public class PersonController {
     public ResponseEntity<?> getAllPeople() {
         List<PersonResponseDTO> personResponseDTOList = personService.getAllPeople();
         if (personResponseDTOList.isEmpty()) {
+            log.error("People list is empty.");
             return new ResponseEntity<>("Persons list is empty.", HttpStatus.NOT_FOUND);
         }
+        log.info("Return people list.");
         return new ResponseEntity<>(personResponseDTOList, HttpStatus.OK);
 
     }

@@ -34,6 +34,7 @@ public class AnimalService {
     }
 
     public Optional<Animal> getAnimalById(Long animalId) {
+        log.info("Get animal with id={}.", animalId);
         return animalRepository.findById(animalId);
     }
 
@@ -46,6 +47,7 @@ public class AnimalService {
 
     public AnimalResponseDTO addOwner(Animal animal, Person owner) {
         Animal animalWithOwner = createAnimalWithOwner(animal, owner);
+        log.info("Save owner with id={}, to animal with id={}.", owner.getPersonId(), animal.getAnimalId());
         animalRepository.save(animalWithOwner);
         return AnimalUtils.convertAnimalToAnimalResponseDTO(animalWithOwner);
     }
@@ -59,25 +61,30 @@ public class AnimalService {
                 .deathYear(deathYear)
                 .owner(animal.getOwner().orElse(null))
                 .build();
+        log.info("Save death year={}, to animal with id={}.", deathYear, deathAnimal.getAnimalId());
         animalRepository.save(deathAnimal);
         return AnimalUtils.convertAnimalToAnimalResponseDTO(deathAnimal);
     }
 
     public AnimalResponseDTO removeOwnerFromAnimal(Animal animal) {
         if (animal.getOwner().isEmpty()) {
+            log.info("Animal with id={}, is without owner.", animal.getAnimalId());
             return AnimalUtils.convertAnimalToAnimalResponseDTO(animal);
         } else {
             Animal animalWithoutOwner = createAnimalWithOwner(animal, null);
+            log.info("Remove owner from animal with id={}.", animal.getAnimalId());
             animalRepository.save(animalWithoutOwner);
             return AnimalUtils.convertAnimalToAnimalResponseDTO(animalWithoutOwner);
         }
     }
 
     public void deleteAnimalById(Long animalId) {
-            animalRepository.deleteById(animalId);
+        log.info("Remove animal with id={}, from database.", animalId);
+        animalRepository.deleteById(animalId);
     }
 
     public boolean checkIfAnimalWithIdExist(Long animalId) {
+        log.info("Check if animal with id={} exist.", animalId);
         return animalRepository.existsById(animalId);
     }
 

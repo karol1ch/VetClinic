@@ -49,7 +49,7 @@ public class AnimalController {
             log.error("Animals list is empty.");
             return new ResponseEntity<>("Animal list is empty.", HttpStatus.NOT_FOUND);
         }
-        log.info("An");
+        log.info("Return animal list.");
         return new ResponseEntity<>(animalResponseDTOList, HttpStatus.OK);
     }
 
@@ -58,13 +58,16 @@ public class AnimalController {
                                               @RequestParam(value = "ownerId") Long ownerId) {
         Optional<Animal> animal = animalService.getAnimalById(animalId);
         if (animal.isEmpty()) {
+            log.error("Animal with id={} not found.", animalId);
             return new ResponseEntity<>("Animal with id " + animalId + " not found.", HttpStatus.NOT_FOUND);
         }
         Optional<Person> person = personService.getPersonById(ownerId);
         if (person.isEmpty()) {
+            log.error("Person with id={} not found.", ownerId);
             return new ResponseEntity<>("Person with id " + ownerId + " not found.", HttpStatus.NOT_FOUND);
         }
         AnimalResponseDTO animalResponseDTO = animalService.addOwner(animal.get(), person.get());
+        log.info("Person with id={}, added to animal with id={}.", ownerId, animalId);
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
     }
 
@@ -73,9 +76,11 @@ public class AnimalController {
                                               @RequestParam(value = "deathYear") int deathYear) {
         Optional<Animal> animal = animalService.getAnimalById(animalId);
         if (animal.isEmpty()) {
+            log.error("Animal with id={} not found.", animalId);
             return new ResponseEntity<>("Animal with id " + animalId + " not found.", HttpStatus.NOT_FOUND);
         }
         AnimalResponseDTO animalResponseDTO = animalService.addDeathYear(animal.get(), deathYear);
+        log.info("Add death year={}, to animal with id={}.", deathYear, animalId);
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
     }
 
@@ -83,18 +88,22 @@ public class AnimalController {
     public ResponseEntity<?> removeOwner(@PathVariable("animalId") Long animalId) {
         Optional<Animal> animal = animalService.getAnimalById(animalId);
         if (animal.isEmpty()) {
+            log.error("Animal with id={} not found.", animalId);
             return new ResponseEntity<>("Animal with id " + animalId + " not found.", HttpStatus.NOT_FOUND);
         }
         AnimalResponseDTO animalResponseDTO = animalService.removeOwnerFromAnimal(animal.get());
+        log.info("Remove person from animal with id={}.", animalId);
         return new ResponseEntity<>(animalResponseDTO, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{animalId}")
     public ResponseEntity<?> deleteAnimalById(@PathVariable("animalId") Long animalId) {
         if (!animalService.checkIfAnimalWithIdExist(animalId)) {
+            log.error("Animal with id={} not found.", animalId);
             return new ResponseEntity<>("Animal with id " + animalId + " not found.", HttpStatus.NOT_FOUND);
         }
         animalService.deleteAnimalById(animalId);
+        log.info("Remove animal with id={}.", animalId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
