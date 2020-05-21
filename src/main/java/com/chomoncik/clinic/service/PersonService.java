@@ -23,9 +23,9 @@ public class PersonService {
     private final PersonRepository personRepository;
 
     public Person addPerson(PersonRequestDTO personRequestDTO) {
-        Person person = new Person(personRequestDTO);
-        log.info("Save person with id={}.", person.getPersonId());
-        return personRepository.save(person);
+        Person createdPerson = personRepository.save(new Person(personRequestDTO));
+        log.info("Save person with id={}.", createdPerson.getPersonId());
+        return createdPerson;
     }
 
     public Optional<Person> getPersonById(Long personId) {

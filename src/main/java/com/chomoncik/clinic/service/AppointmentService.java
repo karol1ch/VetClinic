@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 
 @Service
@@ -19,18 +19,21 @@ import java.util.Optional;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final Clock clock;
 
     public Appointment addAppointment(AppointmentRequestDTO appointmentRequestDTO, Animal animal) {
-        Appointment appointment = new Appointment(
-                appointmentRequestDTO.getAppointmentDateTime(),
-                appointmentRequestDTO.getAppointmentTime(),
-                animal);
-        log.info("Save appointment with id={}.", appointment.getAppointmentId());
-        return appointmentRepository.save(appointment);
+        Appointment createdAppointment = appointmentRepository.save(
+                new Appointment(appointmentRequestDTO.getAppointmentDateTime(),
+                                appointmentRequestDTO.getAppointmentTime(),
+                                animal
+                )
+        );
+        log.info("Save appointment with id={}.", createdAppointment.getAppointmentId());
+        return createdAppointment;
     }
 
     public boolean checkIfDateIsAtLeastTomorrow(LocalDateTime requestedDateTime) {
         log.info("Checking if date {}, is valid.", requestedDateTime);
-        return requestedDateTime.toLocalDate().isAfter(LocalDate.now());
+        return requestedDateTime.toLocalDate().isAfter(LocalDate.now(clock));
     }
 }

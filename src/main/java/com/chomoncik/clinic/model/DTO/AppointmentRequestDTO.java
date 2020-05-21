@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class AppointmentRequestDTO {
     private LocalDateTime appointmentDateTime;
     private AppointmentTime appointmentTime;

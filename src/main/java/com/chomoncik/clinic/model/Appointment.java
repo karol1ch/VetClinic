@@ -1,10 +1,7 @@
 package com.chomoncik.clinic.model;
 
 import com.chomoncik.clinic.model.DTO.AppointmentRequestDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
+@ToString
 public class Appointment {
 
     @Id

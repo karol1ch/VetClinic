@@ -44,7 +44,7 @@ public class PersonController {
         List<PersonResponseDTO> personResponseDTOList = personService.getAllPeople();
         if (personResponseDTOList.isEmpty()) {
             log.error("People list is empty.");
-            return new ResponseEntity<>("Persons list is empty.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("People list is empty.", HttpStatus.NOT_FOUND);
         }
         log.info("Return people list.");
         return new ResponseEntity<>(personResponseDTOList, HttpStatus.OK);

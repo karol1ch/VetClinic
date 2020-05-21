@@ -23,9 +23,9 @@ public class AnimalService {
     private final AnimalRepository animalRepository;
 
     public Animal addAnimal(AnimalRequestDTO animalRequestDTO) {
-        Animal animal = new Animal(animalRequestDTO);
-        log.info("Save animal with id={}.", animal.getAnimalId());
-        return animalRepository.save(animal);
+        Animal createdAnimal = animalRepository.save(new Animal(animalRequestDTO));
+        log.info("Save animal with id={}.", createdAnimal.getAnimalId());
+        return createdAnimal;
     }
 
     public Optional<AnimalResponseDTO> getAnimalResponseDTOById(Long animalId) {

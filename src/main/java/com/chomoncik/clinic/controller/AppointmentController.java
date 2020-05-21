@@ -41,7 +41,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.addAppointment(appointmentRequestDTO, patient.get());
         log.info("Create appointment with id={} for animal with id={}.",
                 appointment.getAppointmentId(), appointment.getPatient().getAnimalId());
-        return new ResponseEntity<>(appointment, HttpStatus.OK);
+        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
 }
