@@ -1,6 +1,5 @@
 package com.chomoncik.clinic.model;
 
-import com.chomoncik.clinic.model.DTO.AppointmentRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;

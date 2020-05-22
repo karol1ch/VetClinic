@@ -7,7 +7,6 @@ import com.chomoncik.clinic.model.AppointmentTime;
 import com.chomoncik.clinic.model.DTO.AppointmentRequestDTO;
 import com.chomoncik.clinic.service.AnimalService;
 import com.chomoncik.clinic.service.AppointmentService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -23,12 +22,10 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.Clock;
+
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Optional;
 
-import static java.util.Collections.emptyList;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;

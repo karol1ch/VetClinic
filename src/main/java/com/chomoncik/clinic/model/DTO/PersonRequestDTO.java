@@ -1,6 +1,5 @@
 package com.chomoncik.clinic.model.DTO;
 
-import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
