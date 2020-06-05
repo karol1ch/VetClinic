@@ -48,6 +48,5 @@ public class PersonController {
         }
         log.info("Return people list.");
         return new ResponseEntity<>(personResponseDTOList, HttpStatus.OK);
-
     }
 }

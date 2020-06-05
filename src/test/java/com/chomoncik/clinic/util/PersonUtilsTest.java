@@ -33,7 +33,7 @@ class PersonUtilsTest {
                 .name(NAME)
                 .surname(SURNAME)
                 .address(ADDRESS)
-                .contact(CONTACT)
+                .mail(CONTACT)
                 .animalSet(ANIMAL_SET)
                 .build();
 
@@ -44,7 +44,7 @@ class PersonUtilsTest {
         assertThat(personResponseDTO.getName()).isEqualTo(NAME);
         assertThat(personResponseDTO.getSurname()).isEqualTo(SURNAME);
         assertThat(personResponseDTO.getAddress()).isEqualTo(ADDRESS);
-        assertThat(personResponseDTO.getContact()).isEqualTo(CONTACT);
+        assertThat(personResponseDTO.getMail()).isEqualTo(CONTACT);
         assertThat(personResponseDTO.getAnimalsSet()).isEqualTo(ANIMAL_NAMES);
     }
 }

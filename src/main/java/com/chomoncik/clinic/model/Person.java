@@ -32,7 +32,7 @@ public class Person {
     private final String address;
 
     @Column
-    private final String contact;
+    private final String mail;
 
     @OneToMany(
             mappedBy = "owner",
@@ -48,7 +48,7 @@ public class Person {
         this.name = null;
         this.surname = null;
         this.address = null;
-        this.contact = null;
+        this.mail = null;
         this.animalSet = new HashSet<>();
     }
 
@@ -57,7 +57,7 @@ public class Person {
         this.name = personRequestDTO.getName();
         this.surname = personRequestDTO.getSurname();
         this.address = personRequestDTO.getAddress();
-        this.contact = personRequestDTO.getContact();
+        this.mail = personRequestDTO.getMail();
         this.animalSet = new HashSet<>();
     }
 }

@@ -13,7 +13,7 @@ public class PersonUtils {
                 .name(person.getName())
                 .surname(person.getSurname())
                 .address(person.getAddress())
-                .contact(person.getContact())
+                .mail(person.getMail())
                 .animalsSet(person.getAnimalSet().stream().map(Animal::getAnimalName).collect(Collectors.toUnmodifiableSet()))
                 .build();
     }

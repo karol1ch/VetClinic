@@ -37,7 +37,7 @@ class PersonServiceTest {
                                                                 .name(NAME)
                                                                 .surname(SURNAME)
                                                                 .address(ADDRESS)
-                                                                .contact(CONTACT)
+                                                                .mail(CONTACT)
                                                                 .build();
 
     private static final Person PERSON_WITH_ANIMALS = Person.builder()
@@ -45,7 +45,7 @@ class PersonServiceTest {
                                                                 .name(NAME)
                                                                 .surname(SURNAME)
                                                                 .address(ADDRESS)
-                                                                .contact(CONTACT)
+                                                                .mail(CONTACT)
                                                                 .animalSet(ANIMAL_SET)
                                                                 .build();
 
@@ -53,14 +53,14 @@ class PersonServiceTest {
                                                                 .name(NAME)
                                                                 .surname(SURNAME)
                                                                 .address(ADDRESS)
-                                                                .contact(CONTACT)
+                                                                .mail(CONTACT)
                                                                 .build();
 
     private static final PersonResponseDTO PERSON_RESPONSE_DTO = PersonResponseDTO.builder()
                                                                 .name(NAME)
                                                                 .surname(SURNAME)
                                                                 .address(ADDRESS)
-                                                                .contact(CONTACT)
+                                                                .mail(CONTACT)
                                                                 .animalsSet(ANIMAL_NAMES)
                                                                 .build();
 
