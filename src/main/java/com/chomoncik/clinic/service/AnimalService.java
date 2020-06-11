@@ -1,11 +1,11 @@
 package com.chomoncik.clinic.service;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
-import com.chomoncik.clinic.model.DTO.AnimalResponseDTO;
+import com.chomoncik.clinic.model.dto.AnimalRequestDTO;
+import com.chomoncik.clinic.model.dto.AnimalResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.AnimalRepository;
-import com.chomoncik.clinic.util.AnimalUtils;
+import com.chomoncik.clinic.converter.AnimalConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class AnimalService {
 
     public Optional<AnimalResponseDTO> getAnimalResponseDTOById(Long animalId) {
         Optional<Animal> animal = getAnimalById(animalId);
-        return animal.map(AnimalUtils::convertAnimalToAnimalResponseDTO);
+        return animal.map(AnimalConverter::convertAnimalToAnimalResponseDTO);
     }
 
     public Optional<Animal> getAnimalById(Long animalId) {
@@ -41,7 +41,7 @@ public class AnimalService {
     public List<AnimalResponseDTO> getAllAnimals() {
         List<Animal> animalList = animalRepository.findAll();
         return animalList.stream()
-                .map(AnimalUtils::convertAnimalToAnimalResponseDTO)
+                .map(AnimalConverter::convertAnimalToAnimalResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -49,7 +49,7 @@ public class AnimalService {
         Animal animalWithOwner = createAnimalWithOwner(animal, owner);
         log.info("Save owner with id={}, to animal with id={}.", owner.getPersonId(), animal.getAnimalId());
         animalRepository.save(animalWithOwner);
-        return AnimalUtils.convertAnimalToAnimalResponseDTO(animalWithOwner);
+        return AnimalConverter.convertAnimalToAnimalResponseDTO(animalWithOwner);
     }
 
     public AnimalResponseDTO addDeathYear(Animal animal, int deathYear) {
@@ -63,18 +63,18 @@ public class AnimalService {
                 .build();
         log.info("Save death year={}, to animal with id={}.", deathYear, deathAnimal.getAnimalId());
         animalRepository.save(deathAnimal);
-        return AnimalUtils.convertAnimalToAnimalResponseDTO(deathAnimal);
+        return AnimalConverter.convertAnimalToAnimalResponseDTO(deathAnimal);
     }
 
     public AnimalResponseDTO removeOwnerFromAnimal(Animal animal) {
         if (animal.getOwner().isEmpty()) {
             log.info("Animal with id={}, is without owner.", animal.getAnimalId());
-            return AnimalUtils.convertAnimalToAnimalResponseDTO(animal);
+            return AnimalConverter.convertAnimalToAnimalResponseDTO(animal);
         } else {
             Animal animalWithoutOwner = createAnimalWithOwner(animal, null);
             log.info("Remove owner from animal with id={}.", animal.getAnimalId());
             animalRepository.save(animalWithoutOwner);
-            return AnimalUtils.convertAnimalToAnimalResponseDTO(animalWithoutOwner);
+            return AnimalConverter.convertAnimalToAnimalResponseDTO(animalWithoutOwner);
         }
     }
 

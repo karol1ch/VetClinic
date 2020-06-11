@@ -3,7 +3,9 @@ package com.chomoncik.clinic.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "appointment")
@@ -27,10 +29,13 @@ public class Appointment {
 
     private final String description;
 
-    @Column(name = "appointment_date_time")
-    private final LocalDateTime appointmentDateTime;
+    @Column(name = "appointment_date")
+    private final LocalDate appointmentDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "appointment_hour")
+    private final LocalTime appointmentHour;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private final Animal patient;
 
     public Appointment() {
@@ -38,7 +43,8 @@ public class Appointment {
         this.appointmentTime = null;
         this.appointmentStatus = null;
         this.description = null;
-        this.appointmentDateTime = null;
+        this.appointmentDate = null;
+        this.appointmentHour = null;
         this.patient = null;
     }
 
@@ -47,7 +53,8 @@ public class Appointment {
         this.appointmentTime = appointmentTime;
         this.appointmentStatus = AppointmentStatus.ARRANGED;
         this.description = null;
-        this.appointmentDateTime = appointmentDateTime;
+        this.appointmentDate = appointmentDateTime.toLocalDate();
+        this.appointmentHour = appointmentDateTime.toLocalTime();
         this.patient = patient;
     }
 }

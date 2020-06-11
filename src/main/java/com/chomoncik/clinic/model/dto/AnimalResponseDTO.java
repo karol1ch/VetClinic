@@ -1,4 +1,4 @@
-package com.chomoncik.clinic.model.DTO;
+package com.chomoncik.clinic.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

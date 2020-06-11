@@ -1,7 +1,7 @@
-package com.chomoncik.clinic.util;
+package com.chomoncik.clinic.converter;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.PersonResponseDTO;
+import com.chomoncik.clinic.model.dto.PersonResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class PersonUtilsTest {
+class PersonConverterTest {
 
     private static final Long ID = 1L;
     private static final String NAME = "jack";
@@ -38,7 +38,7 @@ class PersonUtilsTest {
                 .build();
 
         //WHEN
-        PersonResponseDTO personResponseDTO = PersonUtils.convertPersonToPersonResponseDTO(person);
+        PersonResponseDTO personResponseDTO = PersonConverter.convertPersonToPersonResponseDTO(person);
 
         //THEN
         assertThat(personResponseDTO.getName()).isEqualTo(NAME);

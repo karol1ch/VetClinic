@@ -1,8 +1,8 @@
 package com.chomoncik.clinic.controller;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
-import com.chomoncik.clinic.model.DTO.PersonResponseDTO;
+import com.chomoncik.clinic.model.dto.PersonRequestDTO;
+import com.chomoncik.clinic.model.dto.PersonResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.service.PersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;

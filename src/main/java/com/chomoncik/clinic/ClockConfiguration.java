@@ -1,4 +1,4 @@
-package com.chomoncik.clinic.util;
+package com.chomoncik.clinic;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

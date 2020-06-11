@@ -1,14 +1,14 @@
-package com.chomoncik.clinic.util;
+package com.chomoncik.clinic.converter;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.AnimalResponseDTO;
+import com.chomoncik.clinic.model.dto.AnimalResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class AnimalUtilsTest {
+class AnimalConverterTest {
 
     private static final Long ID = 1L;
     private static final String ANIMAL_NAME = "tofik";
@@ -30,7 +30,7 @@ class AnimalUtilsTest {
                 .build();
 
         //WHEN
-        AnimalResponseDTO animalResponseDTO = AnimalUtils.convertAnimalToAnimalResponseDTO(animal);
+        AnimalResponseDTO animalResponseDTO = AnimalConverter.convertAnimalToAnimalResponseDTO(animal);
 
         //THEN
         assertThat(animalResponseDTO.getAnimalId()).isEqualTo(ID);
@@ -54,7 +54,7 @@ class AnimalUtilsTest {
                 .build();
 
         //WHEN
-        AnimalResponseDTO animalResponseDTO = AnimalUtils.convertAnimalToAnimalResponseDTO(animal);
+        AnimalResponseDTO animalResponseDTO = AnimalConverter.convertAnimalToAnimalResponseDTO(animal);
 
         //THEN
         AssertionsForClassTypes.assertThat(animalResponseDTO.getAnimalId()).isEqualTo(ID);

@@ -1,10 +1,10 @@
 package com.chomoncik.clinic.service;
 
-import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
-import com.chomoncik.clinic.model.DTO.PersonResponseDTO;
+import com.chomoncik.clinic.model.dto.PersonRequestDTO;
+import com.chomoncik.clinic.model.dto.PersonResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.PersonRepository;
-import com.chomoncik.clinic.util.PersonUtils;
+import com.chomoncik.clinic.converter.PersonConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,13 +33,13 @@ public class PersonService {
 
     public Optional<PersonResponseDTO> getPersonResponseDTOById(Long personId) {
         Optional<Person> person = getPersonById(personId);
-        return person.map(PersonUtils::convertPersonToPersonResponseDTO);
+        return person.map(PersonConverter::convertPersonToPersonResponseDTO);
     }
 
     public List<PersonResponseDTO> getAllPeople() {
         List<Person> personList = personRepository.findAll();
         return personList.stream()
-                .map(PersonUtils::convertPersonToPersonResponseDTO)
+                .map(PersonConverter::convertPersonToPersonResponseDTO)
                 .collect(Collectors.toList());
     }
 }

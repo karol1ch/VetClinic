@@ -1,6 +1,6 @@
 package com.chomoncik.clinic.model;
 
-import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
+import com.chomoncik.clinic.model.dto.AnimalRequestDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

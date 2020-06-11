@@ -1,6 +1,6 @@
 package com.chomoncik.clinic.model;
 
-import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
+import com.chomoncik.clinic.model.dto.PersonRequestDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 

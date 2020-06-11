@@ -1,8 +1,8 @@
 package com.chomoncik.clinic.controller;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
-import com.chomoncik.clinic.model.DTO.AnimalResponseDTO;
+import com.chomoncik.clinic.model.dto.AnimalRequestDTO;
+import com.chomoncik.clinic.model.dto.AnimalResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.service.AnimalService;
 import com.chomoncik.clinic.service.PersonService;

@@ -1,8 +1,8 @@
 package com.chomoncik.clinic.service;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.AnimalRequestDTO;
-import com.chomoncik.clinic.model.DTO.AnimalResponseDTO;
+import com.chomoncik.clinic.model.dto.AnimalRequestDTO;
+import com.chomoncik.clinic.model.dto.AnimalResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.AnimalRepository;
 import org.junit.jupiter.api.Test;
@@ -30,51 +30,51 @@ class AnimalServiceTest {
     private static final String OWNER_NAME = "jack";
     private static final Person OWNER = Person.builder().name(OWNER_NAME).build();
     private static final AnimalRequestDTO ANIMAL_REQUEST_DTO = AnimalRequestDTO.builder()
-                                                                                .name(ANIMAL_NAME)
-                                                                                .species(SPECIES)
-                                                                                .birthYear(BIRTH_YEAR)
-                                                                                .deathYear(DEATH_YEAR)
-                                                                                .build();
+            .name(ANIMAL_NAME)
+            .species(SPECIES)
+            .birthYear(BIRTH_YEAR)
+            .deathYear(DEATH_YEAR)
+            .build();
     private static final AnimalResponseDTO ANIMAL_RESPONSE_DTO = AnimalResponseDTO.builder()
-                                                                                    .animalId(ID)
-                                                                                    .name(ANIMAL_NAME)
-                                                                                    .species(SPECIES)
-                                                                                    .birthYear(BIRTH_YEAR)
-                                                                                    .deathYear(DEATH_YEAR)
-                                                                                    .owner(OWNER_NAME)
-                                                                                    .build();
+            .animalId(ID)
+            .name(ANIMAL_NAME)
+            .species(SPECIES)
+            .birthYear(BIRTH_YEAR)
+            .deathYear(DEATH_YEAR)
+            .owner(OWNER_NAME)
+            .build();
     private static final AnimalResponseDTO ANIMAL_RESPONSE_DTO_WITHOUT_ANIMAL =
-                                                                    AnimalResponseDTO.builder()
-                                                                                        .animalId(ID)
-                                                                                        .name(ANIMAL_NAME)
-                                                                                        .species(SPECIES)
-                                                                                        .birthYear(BIRTH_YEAR)
-                                                                                        .deathYear(DEATH_YEAR)
-                                                                                        .build();
+            AnimalResponseDTO.builder()
+                    .animalId(ID)
+                    .name(ANIMAL_NAME)
+                    .species(SPECIES)
+                    .birthYear(BIRTH_YEAR)
+                    .deathYear(DEATH_YEAR)
+                    .build();
     private static final Animal ANIMAL_WITH_OWNER = Animal.builder()
-                                                            .animalId(ID)
-                                                            .animalName(ANIMAL_NAME)
-                                                            .species(SPECIES)
-                                                            .birthYear(BIRTH_YEAR)
-                                                            .deathYear(DEATH_YEAR)
-                                                            .owner(OWNER)
-                                                            .build();
+            .animalId(ID)
+            .animalName(ANIMAL_NAME)
+            .species(SPECIES)
+            .birthYear(BIRTH_YEAR)
+            .deathYear(DEATH_YEAR)
+            .owner(OWNER)
+            .build();
 
     private static final Animal ANIMAL_WITHOUT_OWNER = Animal.builder()
-                                                                .animalId(ID)
-                                                                .animalName(ANIMAL_NAME)
-                                                                .species(SPECIES)
-                                                                .birthYear(BIRTH_YEAR)
-                                                                .deathYear(DEATH_YEAR)
-                                                                .build();
+            .animalId(ID)
+            .animalName(ANIMAL_NAME)
+            .species(SPECIES)
+            .birthYear(BIRTH_YEAR)
+            .deathYear(DEATH_YEAR)
+            .build();
 
     private static final Animal NOT_DEAD_ANIMAL = Animal.builder()
-                                                            .animalId(ID)
-                                                            .animalName(ANIMAL_NAME)
-                                                            .species(SPECIES)
-                                                            .birthYear(BIRTH_YEAR)
-                                                            .owner(OWNER)
-                                                            .build();
+            .animalId(ID)
+            .animalName(ANIMAL_NAME)
+            .species(SPECIES)
+            .birthYear(BIRTH_YEAR)
+            .owner(OWNER)
+            .build();
 
     @Mock
     private AnimalRepository animalRepository;

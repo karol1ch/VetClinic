@@ -1,8 +1,8 @@
 package com.chomoncik.clinic.service;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.PersonRequestDTO;
-import com.chomoncik.clinic.model.DTO.PersonResponseDTO;
+import com.chomoncik.clinic.model.dto.PersonRequestDTO;
+import com.chomoncik.clinic.model.dto.PersonResponseDTO;
 import com.chomoncik.clinic.model.Person;
 import com.chomoncik.clinic.repository.PersonRepository;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,10 @@
-package com.chomoncik.clinic.util;
+package com.chomoncik.clinic.converter;
 
 import com.chomoncik.clinic.model.Animal;
-import com.chomoncik.clinic.model.DTO.AnimalResponseDTO;
+import com.chomoncik.clinic.model.dto.AnimalResponseDTO;
 
 
-public class AnimalUtils {
+public class AnimalConverter {
 
     public static AnimalResponseDTO convertAnimalToAnimalResponseDTO(Animal animal) {
         if (animal.getOwner().isEmpty()) {
