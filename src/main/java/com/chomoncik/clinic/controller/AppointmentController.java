@@ -47,8 +47,8 @@ public class AppointmentController {
                     HttpStatus.BAD_REQUEST);
         }
         if (!appointmentService.checkIfAppointmentTimeIsFree(appointmentDateTime, appointmentDuration)) {
-            log.error("Given appointment date {} is not available.", appointmentDateTime);
-            return new ResponseEntity<>("Given appointment date " + appointmentDateTime +
+            log.error("Given appointment datetime {} is not available.", appointmentDateTime);
+            return new ResponseEntity<>("Given appointment datetime " + appointmentDateTime +
                     " is not available.", HttpStatus.CONFLICT);
         }
         Optional<Animal> patient = animalService.getAnimalById(appointmentRequestDTO.getPatientId());

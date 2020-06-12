@@ -73,7 +73,7 @@ public class AnimalController {
 
     @PatchMapping(path = "{animalId}")
     public ResponseEntity<?> addDeathYear(@PathVariable("animalId") Long animalId,
-                                              @RequestParam(value = "deathYear") int deathYear) {
+                                          @RequestParam(value = "deathYear") int deathYear) {
         Optional<Animal> animal = animalService.getAnimalById(animalId);
         if (animal.isEmpty()) {
             log.error("Animal with id={} not found.", animalId);
